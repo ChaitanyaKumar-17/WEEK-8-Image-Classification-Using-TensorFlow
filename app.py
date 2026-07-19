@@ -97,3 +97,27 @@ print(f"Accuracy:  {accuracy:.4f}")
 print(f"Precision: {precision:.4f}")
 print(f"Recall:    {recall:.4f}")
 print(f"F1-Score:  {f1:.4f}")
+
+
+# Visualizing Predictions and Misclassifications
+# Find indices of correct and incorrect predictions
+correct_indices = np.where(y_pred == y_true)[0]
+incorrect_indices = np.where(y_pred != y_true)[0]
+
+def plot_images(indices, title):
+    plt.figure(figsize=(10, 4))
+    for i, idx in enumerate(np.random.choice(indices, 5, replace=False)):
+        plt.subplot(1, 5, i + 1)
+        plt.imshow(x_test[idx])
+        plt.title(f"T: {class_names[y_true[idx]]}\nP: {class_names[y_pred[idx]]}", 
+                  fontsize=10, color="green" if y_true[idx] == y_pred[idx] else "red")
+        plt.axis('off')
+    plt.suptitle(title)
+    plt.tight_layout()
+    plt.show()
+
+# Visualize Random Predictions
+plot_images(correct_indices, "Correct Predictions")
+
+# Visualize Misclassified Images
+plot_images(incorrect_indices, "Misclassified Images")
