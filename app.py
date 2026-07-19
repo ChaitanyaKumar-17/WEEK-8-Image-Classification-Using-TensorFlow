@@ -46,4 +46,34 @@ model = Sequential([
 model.summary()
 
 
+# Compilation and Training
+# Compile the model
+model.compile(optimizer='adam',
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
 
+# Train the model
+history = model.fit(x_train, y_train_cat, 
+                    epochs=15, 
+                    batch_size=64, 
+                    validation_data=(x_test, y_test_cat))
+
+# Visualize Learning Curves (Loss)
+plt.figure(figsize=(12, 5))
+plt.subplot(1, 2, 1)
+plt.plot(history.history['loss'], label='Training Loss')
+plt.plot(history.history['val_loss'], label='Validation Loss')
+plt.title('Training and Validation Loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+
+# Visualize Learning Curves (Accuracy)
+plt.subplot(1, 2, 2)
+plt.plot(history.history['accuracy'], label='Training Accuracy')
+plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
+plt.title('Training and Validation Accuracy')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy')
+plt.legend()
+plt.show()
