@@ -121,3 +121,19 @@ plot_images(correct_indices, "Correct Predictions")
 
 # Visualize Misclassified Images
 plot_images(incorrect_indices, "Misclassified Images")
+
+
+# Saving and Reloading the Model
+import os
+
+# Save the model
+model_path = 'cifar10_ann.h5'
+model.save(model_path)
+print(f"Model saved to {model_path}")
+
+# Reload and reuse the model
+reloaded_model = tf.keras.models.load_model(model_path)
+
+# Verify the reloaded model works by evaluating it
+loss, acc = reloaded_model.evaluate(x_test, y_test_cat, verbose=0)
+print(f"Reloaded Model Accuracy: {acc:.4f}")
